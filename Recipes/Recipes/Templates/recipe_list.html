@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipes</title>
+</head>
+<body>
+    <h1>All Recipes</h1>
+    <ul>
+        {% for recipe in recipes %}
+            <li><strong>{{ recipe.title }}</strong><br>{{ recipe.instructions }}</li>
+        {% empty %}
+            <li>No recipes found.</li>
+        {% endfor %}
+    </ul>
+    <a href="/">Back to Upload</a>
+</body>
+
+</html>
