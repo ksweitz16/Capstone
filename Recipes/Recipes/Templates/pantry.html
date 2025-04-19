@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Pantry</title>
+</head>
+<body>
+    <h1>My Pantry</h1>
+    <form method="post"> {% csrf_token %} {{ form.as_p }}
+        <button type="submit" name="add_item">Add Ingredient</button>
+    </form>
+    {% if pantry_items %}
+    <ul> {% for item in pantry_items %}
+        <li> {{ item.ingredient }}
+            <form method="post" style="display:inline;">
+                {% csrf_token %} <input type="hidden" name="item_id" value="{{ item.id }}">
+                <button type="submit" name="delete_item">Remove</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %} <p>Your pantry is empty.</p>
+    {% endif %}
+    <p><a href="{% url 'recommend_recipe' %}">Back to Recipe Finder</a>
+    </p>
+</body>
+</html>
