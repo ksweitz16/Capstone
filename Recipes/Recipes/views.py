@@ -6,12 +6,12 @@ from django.contrib.auth.forms import UserCreationForm
 from tablib import Dataset
 from django.http import HttpResponse
 import csv, io
-from .models import Recipe
 from .recipe_tree import match_recipe
 from .resources import RecipeResource
 from .forms import PantryForm, IngredientForm
-from.models import PantryItem
+from .models import PantryItem, Recipe
 from .utils import clean_ingredient
+
 
 def upload(request):
     if request.method == 'POST':
@@ -48,17 +48,51 @@ def recipe_list(request):
     recipes = Recipe.objects.all()
     return render(request, 'recipe_list.html', {'recipes': recipes})
 
+
 def recommend_recipe_view(request):
+    if 'ingredients' not in request.session:
+        request.session['ingredients'] = []
+
+    ingredients = request.session['ingredients']
+    form = IngredientForm(request.POST or None)
     recipe_title = None
+
     if request.method == 'POST':
-        form = IngredientForm(request.POST)
-        if form.is_valid():
-            raw_ingredients = form.cleaned_data['ingredients']
-            ingredient_list = [i.strip() for i in raw_ingredients.split(',')]
-            recipe_title = match_recipe(ingredient_list)
-    else:
-        form = IngredientForm()
-    return render(request, 'recommend_recipe.html', { 'form': form, 'recipe_title': recipe_title })
+        if 'add_item' in request.POST:
+            if form.is_valid():
+                new_ingredient = form.cleaned_data['ingredient'].strip().lower()
+                if len(ingredients) < 3 and new_ingredient not in ingredients:
+                    ingredients.append(new_ingredient)
+                    request.session['ingredients'] = ingredients
+                    print("Added:", new_ingredient) # save back to session
+                return redirect('recommend_recipe')
+
+        elif 'delete_item' in request.POST:
+            item_to_delete = request.POST.get('delete_item')
+            if item_to_delete in ingredients:
+                ingredients.remove(item_to_delete)
+                request.session['ingredients'] = ingredients
+                print("Removed:", item_to_delete)
+            return redirect('recommend_recipe')
+
+        elif 'find_recipe' in request.POST:
+            print("Find Recipe Clicked!")
+            print("Current ingredients:", ingredients)
+            if ingredients:
+                recipe_title = match_recipe(ingredients)
+                print("Recipe title:", recipe_title)
+
+        elif 'clear_session' in request.POST:
+            request.session['ingredients'] = []
+            print("Session cleared!")
+            return redirect('recommend_recipe')
+
+
+    return render(request, 'recommend_recipe.html', {
+        'form': form,
+        'cooking_ingredients': ingredients,
+        'recipe_title': recipe_title
+    })
 
 def pantry_view(request):
     pantry_items = PantryItem.objects.filter(user=request.user).order_by('ingredient')

@@ -18,3 +18,8 @@ class PantryItem(models.Model):
     ingredient = models.CharField(max_length=100)
     def __str__(self):
         return self.ingredient
+
+# class CookingIngredients(models.Model):
+#     ingredient = models.CharField(max_length=100)
+#     def __str__(self):
+#         return self.ingredient

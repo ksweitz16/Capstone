@@ -8,5 +8,7 @@ class PantryForm(forms.ModelForm):
         widgets = { 'ingredient': forms.TextInput(attrs={'placeholder': 'e.g. olive oil, garlic'}), }
 
 class IngredientForm(forms.Form):
-    class Meta:
-        ingredients = forms.CharField( widget=forms.Textarea(attrs={"placeholder": "e.g., onion, garlic, black beans"}), label="Enter ingredients (comma-separated)" )
+    ingredient = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(attrs={'placeholder': 'e.g. garlic'})
+    )

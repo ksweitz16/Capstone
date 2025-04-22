@@ -5,7 +5,25 @@
     <title>Recipe Recommendation</title>
 </head>
 <body> <h1>Find a Recipe by Ingredients</h1>
-    <form method="post"> {% csrf_token %} {{ form.as_p }} <button type="submit">Find Recipe</button>
+    <h2>Enter in up to 3 desired cooking ingredients:</h2>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" name="clear_session">Clear All Ingredients (Debug)</button>
+</form>
+    <form method="post">
+        {% csrf_token %} {{ form.as_p }}
+        <button type="submit" name="add_item">Add Ingredient</button>
+        {% if cooking_ingredients %}
+        <ul>
+        {% for item in cooking_ingredients %}
+            <li>{{ item }}
+                <button type="submit" name="delete_item" value="{{ item }}">Remove</button>
+            </li>
+        {% endfor %}
+        </ul>
+        {% else %} <p>Enter some ingredients for a recommendation</p>
+        {% endif %}
+        <button type="submit" name="find_recipe" onclick="alert('Submitting recipe request')">Find Recipe</button>
     </form>
     {% if recipe_title %}
     <h2>Recommended Recipe:</h2> <p>{{ recipe_title }}</p>
