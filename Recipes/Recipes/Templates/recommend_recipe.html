@@ -13,20 +13,36 @@
     <form method="post">
         {% csrf_token %} {{ form.as_p }}
         <button type="submit" name="add_item">Add Ingredient</button>
+    </form>
         {% if cooking_ingredients %}
         <ul>
         {% for item in cooking_ingredients %}
             <li>{{ item }}
+                <form method="post" style="display:inline;">
+                {% csrf_token %}
                 <button type="submit" name="delete_item" value="{{ item }}">Remove</button>
+                </form>
             </li>
         {% endfor %}
         </ul>
         {% else %} <p>Enter some ingredients for a recommendation</p>
         {% endif %}
+        <form method="post">
+        {% csrf_token %}
         <button type="submit" name="find_recipe" onclick="alert('Submitting recipe request')">Find Recipe</button>
-    </form>
+        </form>
     {% if recipe_title %}
-    <h2>Recommended Recipe:</h2> <p>{{ recipe_title }}</p>
+    <h2>Recommended Recipe:</h2> <p><strong>{{ recipe_title }}</strong></p>
+        {% if recipe_ingredients %}
+        <h3>Ingredients:</h3>
+        <ul>
+            {% for ing in recipe_ingredient_list %}
+                <li>{{ ing }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% else %}
+    <h2>No Recipe Recommendation Found</h2>
     {% endif %}
 </body>
 </html>

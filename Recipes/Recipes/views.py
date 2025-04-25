@@ -61,17 +61,18 @@ def recommend_recipe_view(request):
         if 'add_item' in request.POST:
             if form.is_valid():
                 new_ingredient = form.cleaned_data['ingredient'].strip().lower()
-                if len(ingredients) < 3 and new_ingredient not in ingredients:
+                if len(ingredients) <= 3:
                     ingredients.append(new_ingredient)
-                    request.session['ingredients'] = ingredients
+                    request.session.modified = True
                     print("Added:", new_ingredient) # save back to session
+                    print('ingredients: ', ingredients)
                 return redirect('recommend_recipe')
 
         elif 'delete_item' in request.POST:
             item_to_delete = request.POST.get('delete_item')
             if item_to_delete in ingredients:
                 ingredients.remove(item_to_delete)
-                request.session['ingredients'] = ingredients
+                request.session.modified = True
                 print("Removed:", item_to_delete)
             return redirect('recommend_recipe')
 
@@ -79,20 +80,35 @@ def recommend_recipe_view(request):
             print("Find Recipe Clicked!")
             print("Current ingredients:", ingredients)
             if ingredients:
-                recipe_title = match_recipe(ingredients)
+                recipe_title, recipe_ingredients = match_recipe(ingredients)
                 print("Recipe title:", recipe_title)
+                if recipe_ingredients:
+                    print("before: ", recipe_ingredients)
+                    recipe_ingredient_list = [i.strip() for i in recipe_ingredients.split(',')]
+                    print("after: ", recipe_ingredients)
+                else:
+                    recipe_ingredient_list = []
+                context = {
+                    'form': form,
+                    'cooking_ingredients': ingredients,
+                    'recipe_title': recipe_title,
+                    'recipe_ingredients': recipe_ingredient_list
+                }
+                return render(request, 'recommend_recipe.html', context)
 
         elif 'clear_session' in request.POST:
             request.session['ingredients'] = []
+            request.session.modified = True
             print("Session cleared!")
             return redirect('recommend_recipe')
 
-
-    return render(request, 'recommend_recipe.html', {
+    context = {
         'form': form,
         'cooking_ingredients': ingredients,
-        'recipe_title': recipe_title
-    })
+        'recipe_title': recipe_title,
+    }
+
+    return render(request, 'recommend_recipe.html', context)
 
 def pantry_view(request):
     pantry_items = PantryItem.objects.filter(user=request.user).order_by('ingredient')
