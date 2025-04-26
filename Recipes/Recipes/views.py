@@ -6,7 +6,8 @@ from django.contrib.auth.forms import UserCreationForm
 from tablib import Dataset
 from django.http import HttpResponse
 import csv, io
-from .recipe_tree import match_recipe
+# from .recipe_tree import match_recipe
+from .recipe_knn import match_recipe
 from .resources import RecipeResource
 from .forms import PantryForm, IngredientForm
 from .models import PantryItem, Recipe
@@ -80,19 +81,32 @@ def recommend_recipe_view(request):
             print("Find Recipe Clicked!")
             print("Current ingredients:", ingredients)
             if ingredients:
-                recipe_title, recipe_ingredients = match_recipe(ingredients)
-                print("Recipe title:", recipe_title)
-                if recipe_ingredients:
-                    print("before: ", recipe_ingredients)
-                    recipe_ingredient_list = [i.strip() for i in recipe_ingredients.split(',')]
-                    print("after: ", recipe_ingredients)
+                best_match, next_best_match = match_recipe(ingredients)
+                if best_match is not None:
+                    best_ingredients = best_match.ingredients.split(',')
+                    best_title = best_match.title
+                    print('found best match')
+
                 else:
-                    recipe_ingredient_list = []
+                    best_ingredients = None
+                    best_title = None
+                    print('did not find best match')
+                if next_best_match is not None:
+                    next_best_ing = next_best_match.ingredients
+                    next_best_title = next_best_match.title
+                    print('found next best match')
+                else:
+                    next_best_ing = None
+                    next_best_title = None
+                    print('did not find next best match')
+
                 context = {
                     'form': form,
                     'cooking_ingredients': ingredients,
-                    'recipe_title': recipe_title,
-                    'recipe_ingredients': recipe_ingredient_list
+                    'best_recipe_title': best_title,
+                    'best_recipe_ingredients': best_ingredients,
+                    'next_best_title': next_best_title,
+                    'next_best_ingredients': next_best_ing
                 }
                 return render(request, 'recommend_recipe.html', context)
 
@@ -105,7 +119,6 @@ def recommend_recipe_view(request):
     context = {
         'form': form,
         'cooking_ingredients': ingredients,
-        'recipe_title': recipe_title,
     }
 
     return render(request, 'recommend_recipe.html', context)

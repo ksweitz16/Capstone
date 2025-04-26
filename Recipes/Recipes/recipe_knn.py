@@ -1,66 +1,60 @@
-import re
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.preprocessing import MultiLabelBinarizer
-from rapidfuzz import process
+from sklearn.neighbors import NearestNeighbors
+import numpy as np
+import pandas as pd
+from .nlp_filter import parse_ingredients
 from .models import Recipe
 
-def clean_ingredients(ingredient_str):
-    return [re.sub(r'^\d+[\d\s\/]*(?:[a-zA-Z]+\s)?', '', i.strip().lower()) for i in ingredient_str.split(',')]
 
-def train_knn_model():
-    recipes = list(Recipe.objects.all())
+def match_recipe(user_ingredients):
+    print('check3: ', user_ingredients)
 
-    ingredient_lists = []
-    recipe_ids = []
-    recipe_dict = {}
+    recipes = Recipe.objects.all()
+    if not recipes.exists():
+        return None, None
 
+    data = []
+    recipe_objs = []
     for recipe in recipes:
-        cleaned = clean_ingredients(recipe.ingredients)
-        ingredient_lists.append(cleaned)
-        recipe_ids.append(recipe.id)
-        recipe_dict[recipe.id] = recipe
+        raw_ingredients = recipe.ingredients.split(',')
+        cleaned = parse_ingredients([i.strip() for i in raw_ingredients])
+        data.append(cleaned)    # groups of ingredients per recipe
+        recipe_objs.append(recipe)
 
-    mlb = MultiLabelBinarizer()
-    x = mlb.fit_transform(ingredient_lists)
-    y = recipe_ids
+    # Build vocab
+    vocab = sorted(set(i for sublist in data for i in sublist))
 
-    model = KNeighborsClassifier(n_neighbors=1, metric='jaccard')  # Can adjust k if needed
-    model.fit(x, y)
+    def vectorize(ingredients):
+        return [1 if i in ingredients else 0 for i in vocab]
 
-    return model, mlb, recipe_dict
+    recipe_vectors = [vectorize(ing) for ing in data]
+    user_vector = [vectorize(user_ingredients)]
 
-def fuzzy_match(user_ingredients, known_ingredients):
-    matched = []
-    for ing in user_ingredients:
-        match = process.extractOne(ing, known_ingredients, score_cutoff=80)
-        if match:
-            matched.append(match[0])
-    return matched
+    if sum(user_vector[0]) == 0:
+        return None, None
 
-def recommend_recipe(user_ingredients):
-    model, mlb, recipe_dict = train_knn_model()
-    known_ingredients = mlb.classes_
+    # Fit k-NN
+    # knn = NearestNeighbors(n_neighbors=min(5, len(recipe_vectors)), metric='cosine')
+    knn = NearestNeighbors(n_neighbors=5, metric='cosine')
+    knn.fit(recipe_vectors)
 
-    cleaned_input = [i.lower().strip() for i in user_ingredients]
-    fuzzy_matched_input = fuzzy_match(cleaned_input, known_ingredients)
+    distances, indices = knn.kneighbors(user_vector)
 
-    if not fuzzy_matched_input:
-        return None, None, 0.0
+    # Best match
+    best = None
+    for idx in indices[0]:
+        if len(set(data[idx]) & set(user_ingredients)) == len(user_ingredients):
+            best = recipe_objs[idx]
+            print('check type2: ', type(best))
+            break
 
-    try:
-        input_vector = mlb.transform([fuzzy_matched_input])
-    except ValueError:
-        return None, None, 0.0
-
-    predicted_id = model.predict(input_vector)[0]
-    matched_recipe = recipe_dict.get(predicted_id)
-
-    # Compute match confidence: ratio of input ingredients matched
-    if matched_recipe:
-        recipe_ingredients = clean_ingredients(matched_recipe.ingredients)
-        matched_count = sum(1 for ing in fuzzy_matched_input if ing in recipe_ingredients)
-        confidence = matched_count / len(fuzzy_matched_input)
-        print("Confidence", confidence)
-        return matched_recipe, fuzzy_matched_input, confidence
-
-    return None, None, 0.0
+    # Next best: look for one that matches exactly 2 ingredients
+    next_best = None
+    for idx in indices[0]:  # skip best match
+        overlap = len(set(data[idx]) & set(user_ingredients))
+        if overlap == 2 and recipe_objs[idx] != best:
+            next_best = recipe_objs[idx]
+            break
+    print('check below: ')
+    print(best, next_best)
+    print(type(best), type(next_best))
+    return best, next_best

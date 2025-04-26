@@ -29,20 +29,33 @@
         {% endif %}
         <form method="post">
         {% csrf_token %}
-        <button type="submit" name="find_recipe" onclick="alert('Submitting recipe request')">Find Recipe</button>
+        <button type="submit" name="find_recipe">Find Recipe</button>
         </form>
-    {% if recipe_title %}
-    <h2>Recommended Recipe:</h2> <p><strong>{{ recipe_title }}</strong></p>
-        {% if recipe_ingredients %}
+    {% if best_recipe_title %}
+    <h2>Best Recommended Recipe:</h2> <p><strong>{{ best_recipe_title }}</strong></p>
+        {% if best_recipe_ingredients %}
         <h3>Ingredients:</h3>
         <ul>
-            {% for ing in recipe_ingredient_list %}
+            {% for ing in best_recipe_ingredients %}
                 <li>{{ ing }}</li>
             {% endfor %}
         </ul>
         {% endif %}
     {% else %}
     <h2>No Recipe Recommendation Found</h2>
+    {% endif %}
+    {% if next_best_title %}
+    <h2>Next Best Recommended Recipe:</h2> <p><strong>{{ next_best_title }}</strong></p>
+        {% if next_best_ingredients %}
+        <h3>Ingredients:</h3>
+        <ul>
+            {% for ing in next_best_ingredients %}
+                <li>{{ ing }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% else %}
+    <h2>No Next Best Recipe Recommendation Found</h2>
     {% endif %}
 </body>
 </html>

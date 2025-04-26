@@ -3,19 +3,21 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MultiLabelBinarizer
 from .models import Recipe
+from .nlp_filter import parse_ingredients
 
 # recipes = Recipe.objects.all()
 
 
-def clean_ingredients(ingredient_str):
-    raw_ingredients = [i.strip().lower() for i in ingredient_str.split(',')]
-    cleaned = []
-    for ing in raw_ingredients:
-        # Remove measurements ('1 tablespoon', '2 cups', etc.)
-        ing = re.sub(r'^\d+[\d\s\/]*(?:[a-zA-Z]+\s)?', '', ing)
-        cleaned.append(ing.strip())
-        print()
-    return cleaned
+# def clean_ingredients(ingredient_str):
+#     raw_ingredients = [i.strip().lower() for i in ingredient_str.split(',')]
+#     cleaned = []
+#     for ing in raw_ingredients:
+#         print('raw_ingredients: ', raw_ingredients)
+#         ing = re.sub(r'^\d+[\d\s\/]*(?:[a-zA-Z]+\s)?', '', ing)
+#         cleaned.append(ing.strip())
+#         print('each ingredient: ', ing)
+#     print('cleaned: ', cleaned)
+#     return cleaned
 
 def train_model():
     recipes = Recipe.objects.all()
@@ -25,8 +27,10 @@ def train_model():
     recipe_ids = []
 
     for recipe in recipes:
-        cleaned = clean_ingredients(recipe.ingredients)
+        cleaned = parse_ingredients(recipe.ingredients)
+        print("NEW CLEANED: ", cleaned)
         ingredient_lists.append(cleaned)
+        print("CHECK IF NEEDED: ", ingredient_lists)
         recipe_ids.append(recipe.id)
 
     # convert ingredients to binary matrix using MultiLabelBinarizer
