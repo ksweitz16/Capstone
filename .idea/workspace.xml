@@ -4,17 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5309d37d-990b-49c2-a58b-107b2156e799" name="Changes" comment="base project">
-      <change afterPath="$PROJECT_DIR$/Recipes/README.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Recipes/Recipes/Templates/home.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Recipes/Recipes/Templates/recipe_list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Recipes/Recipes/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Recipes/Recipes/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Recipes/Recipes/recipe_tree.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Recipes/Recipes/resources.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Recipes/Recipes/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="5309d37d-990b-49c2-a58b-107b2156e799" name="Changes" comment="recipe_knn.py used for recipe matching instead of recipe_tree.py now, added ingredient parsing through nlp_filter.py, view and html updated, gives exact best match for 3 user ingredients">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Recipes/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Recipes/README.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Recipes/Recipes/recipe_knn.py" beforeDir="false" afterPath="$PROJECT_DIR$/Recipes/Recipes/recipe_knn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Recipes/Recipes/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Recipes/Recipes/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,42 +19,43 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "ksweitz16"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ksweitz16&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/ksweitz16/Capstone.git",
-    "accountId": "5af5b558-1872-4ddc-ad8c-543ce671f4d6"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ksweitz16/Capstone.git&quot;,
+    &quot;accountId&quot;: &quot;5af5b558-1872-4ddc-ad8c-543ce671f4d6&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2vfxOd1mt2sNBmQWdFZF5XNjXuM" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/kswei/PycharmProjects/RecipeApp",
-    "settings.editor.selected.configurable": "terminal"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/kswei/PycharmProjects/Capstone&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\kswei\PycharmProjects\Capstone" />
@@ -90,11 +85,56 @@
       <option name="project" value="LOCAL" />
       <updated>1744550478392</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="basic views created, upload csv file functionality added, personal notes in README">
+      <option name="closed" value="true" />
+      <created>1744561547891</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1744561547891</updated>
+    </task>
+    <task id="LOCAL-00003" summary="htmls added, pantry model added, login functionality added, recipe_tree.py updated for ML">
+      <option name="closed" value="true" />
+      <created>1745087301065</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1745087301065</updated>
+    </task>
+    <task id="LOCAL-00004" summary="updated recommend_recipe_view, recommend_recipe.html, and IngredientForm">
+      <option name="closed" value="true" />
+      <created>1745362925274</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1745362925274</updated>
+    </task>
+    <task id="LOCAL-00005" summary="fixed recipe_tree.py, bad recommendations, trying kNN model, updated recommend_recipe.html, now functional, but still no recipe ingredient list">
+      <option name="closed" value="true" />
+      <created>1745540144056</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1745540144056</updated>
+    </task>
+    <task id="LOCAL-00006" summary="recipe_knn.py used for recipe matching instead of recipe_tree.py now, added ingredient parsing through nlp_filter.py, view and html updated, gives exact best match for 3 user ingredients">
+      <option name="closed" value="true" />
+      <created>1745693151028</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1745693151028</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="base project" />
-    <option name="LAST_COMMIT_MESSAGE" value="base project" />
+    <MESSAGE value="basic views created, upload csv file functionality added, personal notes in README" />
+    <MESSAGE value="htmls added, pantry model added, login functionality added, recipe_tree.py updated for ML" />
+    <MESSAGE value="updated recommend_recipe_view, recommend_recipe.html, and IngredientForm" />
+    <MESSAGE value="fixed recipe_tree.py, bad recommendations, trying kNN model, updated recommend_recipe.html, now functional, but still no recipe ingredient list" />
+    <MESSAGE value="recipe_knn.py used for recipe matching instead of recipe_tree.py now, added ingredient parsing through nlp_filter.py, view and html updated, gives exact best match for 3 user ingredients" />
+    <option name="LAST_COMMIT_MESSAGE" value="recipe_knn.py used for recipe matching instead of recipe_tree.py now, added ingredient parsing through nlp_filter.py, view and html updated, gives exact best match for 3 user ingredients" />
   </component>
 </project>

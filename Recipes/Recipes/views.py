@@ -56,7 +56,6 @@ def recommend_recipe_view(request):
 
     ingredients = request.session['ingredients']
     form = IngredientForm(request.POST or None)
-    recipe_title = None
 
     if request.method == 'POST':
         if 'add_item' in request.POST:
@@ -65,8 +64,6 @@ def recommend_recipe_view(request):
                 if len(ingredients) <= 3:
                     ingredients.append(new_ingredient)
                     request.session.modified = True
-                    print("Added:", new_ingredient) # save back to session
-                    print('ingredients: ', ingredients)
                 return redirect('recommend_recipe')
 
         elif 'delete_item' in request.POST:
@@ -74,31 +71,24 @@ def recommend_recipe_view(request):
             if item_to_delete in ingredients:
                 ingredients.remove(item_to_delete)
                 request.session.modified = True
-                print("Removed:", item_to_delete)
             return redirect('recommend_recipe')
 
         elif 'find_recipe' in request.POST:
-            print("Find Recipe Clicked!")
-            print("Current ingredients:", ingredients)
             if ingredients:
                 best_match, next_best_match = match_recipe(ingredients)
                 if best_match is not None:
                     best_ingredients = best_match.ingredients.split(',')
                     best_title = best_match.title
-                    print('found best match')
 
                 else:
                     best_ingredients = None
                     best_title = None
-                    print('did not find best match')
                 if next_best_match is not None:
-                    next_best_ing = next_best_match.ingredients
+                    next_best_ing = next_best_match.ingredients.split(',')
                     next_best_title = next_best_match.title
-                    print('found next best match')
                 else:
                     next_best_ing = None
                     next_best_title = None
-                    print('did not find next best match')
 
                 context = {
                     'form': form,
@@ -113,7 +103,6 @@ def recommend_recipe_view(request):
         elif 'clear_session' in request.POST:
             request.session['ingredients'] = []
             request.session.modified = True
-            print("Session cleared!")
             return redirect('recommend_recipe')
 
     context = {

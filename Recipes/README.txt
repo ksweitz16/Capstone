@@ -11,4 +11,5 @@ add fuzzy matching to recipe_tree.py to see if that improves recommendations
 DONE try kNN model to see if those recommendations are better
 DONE if no NLP library, build something that gets rid of quantities and units
 
-improve kNN matching to be less exact and provide a next best match
+DONE improve kNN matching to be less exact and provide a next best match
+improve the look of the html pages --> css and bootstrap?
