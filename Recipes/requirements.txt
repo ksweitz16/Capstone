@@ -1,0 +1,5 @@
+Django==5.2
+django_import_export==4.3.7
+scikit_learn==1.6.1
+spacy==3.8.5
+tablib==3.8.0
