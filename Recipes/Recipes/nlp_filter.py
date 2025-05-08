@@ -25,12 +25,12 @@ DESCRIPTORS = {
 nlp = spacy.load("en_core_web_sm")
 
 def parse_ingredients(raw_ingredients):
-    print('before stripping: ', raw_ingredients)
+    # print('before stripping: ', raw_ingredients)
     ingredient_list = [i.strip() for i in raw_ingredients if i.strip()]
-    print("Raw input now:", ingredient_list)
-    """
-    Takes a list of raw ingredient strings and returns just ingredients (no quantities or descriptors).
-    """
+    # print("Raw input now:", ingredient_list)
+
+    # Takes a list of raw ingredient strings and returns just ingredients (no quantities or descriptors).
+
     def clean_ingredient(ingredient):
         # Remove leading quantities like '1/2', '.5', '2'
         ingredient = re.sub(r'^[.\d/]+\s*', '', ingredient)
