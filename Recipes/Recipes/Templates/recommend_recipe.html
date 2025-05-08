@@ -3,12 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <title>Recipe Recommendation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #d2ecbc;
+            color: #333;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            color: #2f6206;
+        }
+        .container .box-row{
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            gap: 20px;
+        }
+        .container .box .box-cell.box1 {
+            max-width: 800px;
+            margin: auto;
+            background: #f9dd90 ;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: justify;
+        }
+        .container .box .box-cell.box2 {
+            max-width: 800px;
+            margin: auto;
+            background: #f9dd90 ;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: justify;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: #92ee73;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        p {
+            margin-bottom: 1em;
+        }
+        .button {
+            background-color: #0e933a;
+            border: none;
+            color: white;
+            padding: 15px 45px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 6px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body> <h1>Find a Recipe by Ingredients</h1>
-    <h2>Enter in up to 3 desired cooking ingredients:</h2>
+    <div class="container">
+    <h2>Enter up to 3 desired cooking ingredients:</h2>
 <form method="post">
     {% csrf_token %}
-    <button type="submit" name="clear_session">Clear All Ingredients (Debug)</button>
+    <button type="submit" name="clear_session">Clear All Ingredients </button>
 </form>
     <form method="post">
         {% csrf_token %} {{ form.as_p }}
@@ -31,29 +91,40 @@
         {% csrf_token %}
         <button type="submit" name="find_recipe">Find Recipe</button>
         </form>
+    </div>
     {% if best_recipe_title %}
-    <h2>Best Recommended Recipe:</h2> <p><strong>{{ best_recipe_title }}</strong></p>
-        {% if best_recipe_ingredients %}
-        <h3>Ingredients:</h3>
-        <ul>
-            {% for ing in best_recipe_ingredients %}
-                <li>{{ ing }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
+    <div class="container">
+        <div class="box">
+            <div class="box-row">
+                <div class="box-cell box1">
+                <h2>Best Recommended Recipe:</h2> <p><strong>{{ best_recipe_title }}</strong></p>
+                    {% if best_recipe_ingredients %}
+                    <h3>Ingredients:</h3>
+                    <ul>
+                    {% for ing in best_recipe_ingredients %}
+                        <li>{{ ing }}</li>
+                    {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
     {% else %}
     <h2>No Recipe Recommendation Found</h2>
     {% endif %}
-    {% if next_best_title %}
-    <h2>Next Best Recommended Recipe:</h2> <p><strong>{{ next_best_title }}</strong></p>
-        {% if next_best_ingredients %}
-        <h3>Ingredients:</h3>
-        <ul>
-            {% for ing in next_best_ingredients %}
-                <li>{{ ing }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
+                <div class="box-cell box2">
+                {% if next_best_title %}
+                <h2>Next Best Recommended Recipe:</h2> <p><strong>{{ next_best_title }}</strong></p>
+                    {% if next_best_ingredients %}
+                    <h3>Ingredients:</h3>
+                    <ul>
+                        {% for ing in next_best_ingredients %}
+                         <li>{{ ing }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
     {% else %}
     <h2>No Next Best Recipe Recommendation Found</h2>
     {% endif %}

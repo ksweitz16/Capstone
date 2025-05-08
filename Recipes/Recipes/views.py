@@ -112,31 +112,31 @@ def recommend_recipe_view(request):
 
     return render(request, 'recommend_recipe.html', context)
 
-def pantry_view(request):
-    pantry_items = PantryItem.objects.filter(user=request.user).order_by('ingredient')
-    if request.method == 'POST':
-        if 'add_item' in request.POST:
-            form = PantryForm(request.POST)
-            if form.is_valid():
-                new_item = form.save(commit=False)
-                new_item.user = request.user
-                new_item.ingredient = clean_ingredient(new_item.ingredient)
-                if not PantryItem.objects.filter(user=request.user, ingredient=new_item.ingredient).exists():
-                    new_item.save()
-                return redirect('pantry')
-
-        elif 'delete_item' in request.POST:
-            item_id = request.POST.get('item_id')
-            PantryItem.objects.filter(id=item_id, user=request.user).delete()
-            return redirect('pantry')
-
-    else:
-        form = PantryForm()
-
-    return render(request, 'pantry.html', {
-        'form': form,
-        'pantry_items': pantry_items,
-    })
+# def pantry_view(request):
+#     pantry_items = PantryItem.objects.filter(user=request.user).order_by('ingredient')
+#     if request.method == 'POST':
+#         if 'add_item' in request.POST:
+#             form = PantryForm(request.POST)
+#             if form.is_valid():
+#                 new_item = form.save(commit=False)
+#                 new_item.user = request.user
+#                 new_item.ingredient = clean_ingredient(new_item.ingredient)
+#                 if not PantryItem.objects.filter(user=request.user, ingredient=new_item.ingredient).exists():
+#                     new_item.save()
+#                 return redirect('pantry')
+#
+#         elif 'delete_item' in request.POST:
+#             item_id = request.POST.get('item_id')
+#             PantryItem.objects.filter(id=item_id, user=request.user).delete()
+#             return redirect('pantry')
+#
+#     else:
+#         form = PantryForm()
+#
+#     return render(request, 'pantry.html', {
+#         'form': form,
+#         'pantry_items': pantry_items,
+#     })
 
 def register_view(request):
     if request.method == 'POST':

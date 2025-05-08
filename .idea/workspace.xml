@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5309d37d-990b-49c2-a58b-107b2156e799" name="Changes" comment="recipe_knn.py used for recipe matching instead of recipe_tree.py now, added ingredient parsing through nlp_filter.py, view and html updated, gives exact best match for 3 user ingredients">
+    <list default="true" id="5309d37d-990b-49c2-a58b-107b2156e799" name="Changes" comment="requirements.txt added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Recipes/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Recipes/README.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Recipes/Recipes/recipe_knn.py" beforeDir="false" afterPath="$PROJECT_DIR$/Recipes/Recipes/recipe_knn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Recipes/Recipes/Templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/Recipes/Recipes/Templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Recipes/Recipes/Templates/recipe_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/Recipes/Recipes/Templates/recipe_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Recipes/Recipes/Templates/recommend_recipe.html" beforeDir="false" afterPath="$PROJECT_DIR$/Recipes/Recipes/Templates/recommend_recipe.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Recipes/Recipes/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Recipes/Recipes/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Recipes/Recipes/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Recipes/Recipes/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -125,7 +127,23 @@
       <option name="project" value="LOCAL" />
       <updated>1745693151028</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="cleaned up print/debug statements">
+      <option name="closed" value="true" />
+      <created>1745709804147</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1745709804147</updated>
+    </task>
+    <task id="LOCAL-00008" summary="requirements.txt added">
+      <option name="closed" value="true" />
+      <created>1746204168469</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1746204168469</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -135,6 +153,8 @@
     <MESSAGE value="updated recommend_recipe_view, recommend_recipe.html, and IngredientForm" />
     <MESSAGE value="fixed recipe_tree.py, bad recommendations, trying kNN model, updated recommend_recipe.html, now functional, but still no recipe ingredient list" />
     <MESSAGE value="recipe_knn.py used for recipe matching instead of recipe_tree.py now, added ingredient parsing through nlp_filter.py, view and html updated, gives exact best match for 3 user ingredients" />
-    <option name="LAST_COMMIT_MESSAGE" value="recipe_knn.py used for recipe matching instead of recipe_tree.py now, added ingredient parsing through nlp_filter.py, view and html updated, gives exact best match for 3 user ingredients" />
+    <MESSAGE value="cleaned up print/debug statements" />
+    <MESSAGE value="requirements.txt added" />
+    <option name="LAST_COMMIT_MESSAGE" value="requirements.txt added" />
   </component>
 </project>
