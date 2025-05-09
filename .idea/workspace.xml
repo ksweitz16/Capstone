@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5309d37d-990b-49c2-a58b-107b2156e799" name="Changes" comment="requirements.txt added">
+    <list default="true" id="5309d37d-990b-49c2-a58b-107b2156e799" name="Changes" comment="verification print statements disabled">
+      <change afterPath="$PROJECT_DIR$/Recipes/Recipes/knn_graph.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Recipes/Recipes/Templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/Recipes/Recipes/Templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Recipes/Recipes/Templates/recipe_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/Recipes/Recipes/Templates/recipe_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Recipes/Recipes/Templates/recommend_recipe.html" beforeDir="false" afterPath="$PROJECT_DIR$/Recipes/Recipes/Templates/recommend_recipe.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Recipes/Recipes/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Recipes/Recipes/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Recipes/Recipes/recipe_knn.py" beforeDir="false" afterPath="$PROJECT_DIR$/Recipes/Recipes/recipe_knn.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Recipes/Recipes/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Recipes/Recipes/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -143,7 +141,23 @@
       <option name="project" value="LOCAL" />
       <updated>1746204168469</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="pantry feature disabled, style added to html pages">
+      <option name="closed" value="true" />
+      <created>1746667817109</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1746667817109</updated>
+    </task>
+    <task id="LOCAL-00010" summary="verification print statements disabled">
+      <option name="closed" value="true" />
+      <created>1746667985500</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1746667985500</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -155,6 +169,8 @@
     <MESSAGE value="recipe_knn.py used for recipe matching instead of recipe_tree.py now, added ingredient parsing through nlp_filter.py, view and html updated, gives exact best match for 3 user ingredients" />
     <MESSAGE value="cleaned up print/debug statements" />
     <MESSAGE value="requirements.txt added" />
-    <option name="LAST_COMMIT_MESSAGE" value="requirements.txt added" />
+    <MESSAGE value="pantry feature disabled, style added to html pages" />
+    <MESSAGE value="verification print statements disabled" />
+    <option name="LAST_COMMIT_MESSAGE" value="verification print statements disabled" />
   </component>
 </project>

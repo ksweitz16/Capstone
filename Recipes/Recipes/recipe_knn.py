@@ -63,4 +63,4 @@ def match_recipe(user_ingredients):
             print(f"Next Best: #{rec.id} {rec.title} | Score: {score:.3f} | Overlap: {overlap} | Similarity: {sim:.3f}")
             break
 
-    return best, next_best
+    return best, next_best, scored_matches

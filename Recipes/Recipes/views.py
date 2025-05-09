@@ -11,6 +11,7 @@ from .recipe_knn import match_recipe
 from .resources import RecipeResource
 from .forms import PantryForm, IngredientForm
 from .models import PantryItem, Recipe
+from .knn_graph import graph_matches
 from .utils import clean_ingredient
 
 
@@ -75,7 +76,7 @@ def recommend_recipe_view(request):
 
         elif 'find_recipe' in request.POST:
             if ingredients:
-                best_match, next_best_match = match_recipe(ingredients)
+                best_match, next_best_match, scored_matches = match_recipe(ingredients)
                 if best_match is not None:
                     best_ingredients = best_match.ingredients.split(',')
                     best_title = best_match.title
@@ -98,6 +99,7 @@ def recommend_recipe_view(request):
                     'next_best_title': next_best_title,
                     'next_best_ingredients': next_best_ing
                 }
+                graph_matches(scored_matches, ingredients)
                 return render(request, 'recommend_recipe.html', context)
 
         elif 'clear_session' in request.POST:
